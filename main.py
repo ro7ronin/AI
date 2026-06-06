@@ -77,8 +77,9 @@ print(f"Total embedding time: {total_embedding_time:.4f} seconds")
 retriever = db.as_retriever(search_kwargs={"k": 3})
 
 
-
-query = "What is the main topic of the document?"
+pdf_name = pdf_path
+# query = "What is the main topic of the document?"
+query = input("Ask a question regarding "+ pdf_name +": ")
 # query = "Who wrote this book?"
 # query = "How many characters are there in novel 1984?"
 
