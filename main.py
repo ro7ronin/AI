@@ -8,7 +8,16 @@ from langchain_community.vectorstores import Chroma
 from langchain_ollama import ChatOllama
 
 start_time = time.perf_counter()
-loader = PyPDFLoader("Books/1984.pdf")
+
+pdf_path = "Books/1984.pdf"
+
+pdf_name = os.path.splitext(
+    os.path.basename(pdf_path)
+)[0]
+
+db_path = f"./chroma_db/{pdf_name}"
+
+loader = PyPDFLoader(pdf_path)
 docs = loader.load()
 
 # from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -40,17 +49,24 @@ embedding_start_time = time.perf_counter()
 #     persist_directory="./chroma_db"
 # )
 
-if not os.path.exists("./chroma_db"):
+if not os.path.exists(db_path):
+
+    print("Creating embeddings...")
+
     db = Chroma.from_documents(
         chunks,
         embeddings,
-        persist_directory="./chroma_db"
+        persist_directory=db_path
     )
 
-db = Chroma(
-    persist_directory="./chroma_db",
-    embedding_function=embeddings
-)
+else:
+
+    print("Loading existing embeddings...")
+
+    db = Chroma(
+        persist_directory=db_path,
+        embedding_function=embeddings
+    )
 
 
 total_embedding_time = time.perf_counter()-embedding_start_time
