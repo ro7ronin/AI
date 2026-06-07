@@ -1,11 +1,12 @@
 import time
 import os
 from langchain_community.document_loaders import PyPDFLoader
+# from langchain_pdf import PyPDFLoader
 # from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_ollama import OllamaEmbeddings
-from langchain_community.vectorstores import Chroma
-from langchain_ollama import ChatOllama
+from langchain_ollama import OllamaEmbeddings, ChatOllama
+from langchain_chroma import Chroma
+# from langchain_community.vectorstores import Chroma
 
 start_time = time.perf_counter()
 
